@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} property {% endblock title %}
+
+{% block modal %}
+<div class="d-none">
+    {% include 'partials/_image2.html' with name="image"  %}
+</div>
+
+<div aria-hidden="true" class="onboarding-modal modal fade animated" data-tab="choose_modal" style='z-index:11000' id="choose_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-centered" role="document">
+      <div class="modal-content text-center"> <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+        <div class="onboarding-content with-gradient">
+          <h1 class="onboarding-title lead alert_title font-w600 text-primary " id='success_title' >Okay</h1>
+          <h4 class="onboarding-title text-muted lead alert_text" id='success_confirm_text'>Have you downloaded the blank excel template and filled it with your data? </h4>
+          <div class="col text-center border-top d-flex justify-content-between alert_buttons"> <a data-dismiss="modal" class=" font-w600 btn btn-outline-dark   px-5 py-2 display-5"  id='download_excel_button'><span>Not yet</span></a>
+        
+            <a  class="btn btn-outline-primary  px-5 py-2" id="attach_excel_button" ><span>Yes I have</span></a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div aria-hidden="true" data-backdrop="static" class="onboarding-modal modal fade animated" id="download_modal"
+    role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-centered moda[l-lg" role="document">
+        <div class="modal-content" stylse="min-height:500px">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                    class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <form method="post" id='import_form' enctype="multipart/form-data">
+
+
+                <div class="onboarding-content with-gradient" stsyle="min-height:500px">
+                    <h4
+                        class="onboarding-title1 text-blackd display-8 font-w600 fancy_text5 text-center mb-0 property_title">
+                        Download the template</h4>
+                    <hr>
+
+                    <div class="row bg-white py-4 border-bottom mx-auto">
+                        <div class="row mx-auto show_document d-nwone text-center">
+                            <div class="col-12">
+                                <p class="text-center fancy_text3  p-2"
+                                style="font-size:17px;color:#aba8a8 !important;borrder-top:1px solid #aba8a8;border-brottom:1px solid #aba8a8">
+                                 <span> </span>Click the link below to download an empty excel document. <br>Fill the document with your data and then upload it for verfication</p>
+                            
+                            </div>
+                        </div>
+                      
+                    </div>
+
+                    <div class="form-buttons-we d-flex flex-row justify-content-center mt-3">
+                        <a href="{% static 'files/unit.xlsx' %}" download class="btn btn-outline-primary btn-rounded px-5 py-2" id="download_document"
+                        >
+                        Click to download</a>
+                        {% comment %} <button class="btn btn-outline-primary btn-rounded px-5 py-2 " type="button" > Click to download
+                        </button> {% endcomment %}
+                    </div>
+                </div>
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" data-backdrop="static" class="onboarding-modal modal fade animated" id="attach_modal"
+    role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-centered moda[l-lg" role="document">
+        <div class="modal-content" stylse="min-height:500px">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                    class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <form method="post" id='import_form' enctype="multipart/form-data">
+
+
+                <div class="onboarding-content with-gradient" stsyle="min-height:500px">
+                    <h4
+                        class="onboarding-title1 text-blackd display-8 font-w600 fancy_text5 text-center mb-0 property_title">
+                        Attach the excel file</h4>
+                    <hr>
+
+                    <div class="row bg-white p-4 mx-auto">
+                      
+                        <div class="row  mx-4 upload_document">
+                            <label for="" style="font-size:15px" class='text-center col-sm-12  fancy_text3 text-black '>
+                            </label>
+                            <input type="file" name='excel_document'
+                                class="form-control-file btn-roundedd btn btn-outline-primary px-5 py-4"
+                                id="excel_document">
+
+                        </div>
+                    </div>
+                    <div class="form-buttons-w d-flex flex-row justify-content-center mt-1">
+                        <button class="btn btn-primary px-5 py-2 " type="buttom" id="submit_property">Click
+                            to upload
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock modal %}
+{% block content %}
+<div class="content-body" style="min-height: 828px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="card mx-3">
+            <div class="card-header d-block mx-3 text-center">
+                <h5 class="card-titles custom-card-title display-4 ">Import property</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="col-12">
+                    <div class="card px-3">
+                        {% include 'partials/_table_extra.html' with button_class="" button_id="choose_excel_button" button_text="Click to import" total_class="total_property" total_text="imports"  %}
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="property_table">
+                                    <thead class="bg-primaryf">
+                                        <tr>
+                                            <th>Property</th>
+                                            <th>Type</th>
+                                            <th>Location</th>
+                                            <th>Monthly net increase</th>
+                                            <th>Annualized increase</th>
+                                            <th>Added through</th>
+                                            <th> </th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+{% include 'partials/_date.html' %}
+<script>
+   // $('#attach_modal').modal('show');
+
+
+  
+    $(document).on('click', '#download_document', function () {
+        $('#success_text').text("Your download should begin shortly. Add your data to the template then we can upload");
+        $('#choose_modal').modal('hide');
+        $('#download_modal').modal('hide');
+        $('#success_alert').modal('show');
+        
+    });
+  
+    $(document).on('click', '#choose_excel_button', function () {
+
+        $('#choose_modal').modal('show');
+    });
+  
+    $(document).on('click', '#download_excel_button', function () {
+        $('#choose_modal').modal('hide');
+        $('#download_modal').modal('show');
+    });
+ 
+    $(document).on('click', '#attach_excel_button', function () {
+        $('#choose_modal').modal('hide');
+        $('#import_form')[0].reset();
+
+        $('#attach_modal').modal('show');
+    });
+ 
+  //  $('#property_table').css('min-height', '200px');
+    var property_table = $("#property_table").DataTable({
+        processing: true,
+        serverSide: true,
+        "ordering": false,
+        "oLanguage": {
+            "sEmptyTable": "No property has been imported",
+            "sStripClasses": "",
+            "sSearch": "",
+            "sSearchPlaceholder": "search...",
+            "sLengthMenu": '<span></span><select class="browser-default bg-light ">' +
+                '<option value="10">10</option>' +
+                '<option value="20">20</option>' +
+                '<option value="30">30</option>' +
+                '<option value="40">40</option>' +
+                '<option value="50">50</option>' +
+                '<option value="50">100</option>' +
+
+                '</select></div>'
+        },
+        ajax: {
+            url: '{% url "property:property-excel" %}',
+        },
+
+        // dom: 'Bfrtip',
+        //  buttons: [
+        //      'copyHtml5',
+        //        'excelHtml5',
+        //        'csvHtml5',
+        //        'pdfHtml5'
+        // ],
+
+
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // converting to interger to find total
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // computing column Total of the complete result 
+
+        },
+        "fnDrawCallback": function () {
+            $('.total_property').html(this.fnSettings().fnRecordsTotal());
+        },			
+        "rowCallback": function(row, data, index) {
+           // $("td:eq(3)", row).css("background-color", "#F9EBEA" );
+            $("td:eq(3)", row).css("border-left", "1px solid #7e7e7e" );
+            $("td:eq(4)", row).css("border-left", "1px solid #7e7e7e" );
+            $("td:eq(4)", row).css("border-right", "1px solid #7e7e7e" );
+            $("td:eq(5)", row).css("border-right", "1px solid #7e7e7e" );
+        
+          ///  $("td:eq(4)", row).css("background-color", "#F9EBEA");
+   
+    
+           
+        }
+    }); 
+
+   
+    $(document).on('click', '.delete_property_button', function () {
+        var data = $(this).attr("id");
+        var data_split = data.split(",");
+        var property_name = data_split[0];
+        var property_id = data_split[1];
+        $('#confirm_title').text("Just confirming...");
+        $('#confirm_text').text("Confirming the delete of " + property_name + " as a property");
+        $('#confirm_extra').text("Do you really want to delete " + property_name + "?");
+        $('#confirm_button').text("Confirm delete");
+        $('#confirm_alert').modal('show');
+        $('#confirmYes').one('click', function () {
+            $.ajax({
+                url: "{% url 'property:property-rud' id=12345 %}".replace(/12345/,
+                        property_id)
+                    .toString(),
+                method: "DELETE",
+                dataType: "json",
+                success: function (data) {
+                    property_table.ajax.reload();
+                    $('#success_text').text("Property removed.");
+                    $('#confirm_alert').modal('hide');
+                    $('#success_alert').modal('show');
+                }
+            });
+
+        });
+        $("#confirmNo").click(function () {
+            $('#confirm_alert').modal('hide');
+        });
+
+    });
+    $(document).on('submit', '#import_form', function (event) {
+        var button="Upload file"
+        var url = '{% url "property:property-excel" %}';
+        var form_data = new FormData(this);
+        event.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: form_data,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            beforeSend: function () {
+                $('#submit_property').attr('disabled', 'disabled');
+                $("#submit_property").html("Please wait");
+            },
+            success: function (data) {
+                $('#submit_property').attr('disabled', false);
+                $("#submit_property").html(button);
+
+                if (data.success) {
+                    property_table.ajax.reload();
+                    $('#attach_modal').modal('hide');
+
+                    $('#success_text').text(data.success);
+                    $('#success_alert').modal('show');
+
+                }
+                if (data.error) {
+                    $('#oops_text').text(data.error);
+                    $('#oops_alert').modal('show');
+                }
+            },
+            error: function (jqXhr) {
+                $('#submit_property').attr('disabled', false);
+                $("#submit_property").html(button);
+                $('#oops_text').text("Something went wrong, try again later");
+                $('#oops_alert').modal('show');
+            }
+        });
+    });
+
+
+
+
+   
+  
+    
+
+</script>
+{% endblock scripts %}
+
+
+
+{% endblock content %}
+
+
+<!--**********************************
+    Content body end
+***********************************-->

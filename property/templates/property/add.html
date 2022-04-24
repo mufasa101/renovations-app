@@ -1,0 +1,680 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} property {% endblock title %}
+
+{% block modal %}
+<div class="d-none">
+    {% include 'partials/_image2.html' with name="image"  %}
+</div>
+
+<div aria-hidden="true" data-backdrop="static" class="onboarding-modal modal fade animated" id="next_modal"
+    role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-centered" role="document">
+        <div class="modal-content">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                    class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+
+            <div class="onboarding-content with-gradient">
+                <h4 class="onboarding-title lead display-7 text-center"><span
+                        class="onboarding-title display-4 fancy_text5 lead">Good job!</span></h4>
+                <h4 class="onboarding-title text-muted lead display-7 text-center"><span
+                        class="onboarding-title text-muted display-8 font-w600 fancy_text3 text-primary">The property
+                        has
+                        been added succesfully.</span>
+                    <span><br></span></h4>
+                <div class="row pt-4">
+                    <div class="col-12">
+                        <div class="form-group"><label class='' for="">Do you want to add renovation data</label>
+                            <select class="form-control" id="next_value">
+                                {% comment %} <option value="units">Add units (For rent/Sale)</option> {% endcomment %}
+
+                                <option value="yes">Yes</option>
+
+
+                                <option value='nothing'>Maybe later</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="next_id" class='next_id'>
+                <div class='form-buttons-w3 d-flex flex-row justify-content-end'> <a class="btn btn-primary px-5 py-3 "
+                        id="next_submit"><span class="answer text-white">Continue
+                        </span></a></div>
+
+                <!-- <div class="form-buttons-w center text-center d-flex justify-content-end">
+					<a data-dismiss="modal" class="btn btn-primary text-white px-5 py-3" id='success_button'><span>Floors in lanagata paradise</span></a>
+				</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" data-backdrop="static" class="onboarding-modal modal fade animated" id="property_modal"
+    role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-centered modal-lg" role="document">
+        <div class="modal-content" stylse="min-height:500px">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                    class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <form method="POST" id='property_form'>
+                <div class="onboarding-slider-w" stysle="min-height:500px">
+                    <div class="onboarding-slide" stsyle="min-height:500px">
+                        <div class="onboarding-content with-gradient" stsyle="min-height:500px">
+                            <h4
+                                class="onboarding-title1 text-blackd display-10 font-w600 fancy_text5 text-left mb-0 property_title">
+                                Let's begin</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Property name</label>
+                                        <input class="form-control editable" type="text" autocomplete="off"
+                                            placeholder="Enter the property name" name="property_name"
+                                            id="property_name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Unit#</label>
+                                        <input class="form-control editable" type="text" autocomplete="off"
+                                            placeholder="Enter the unit number" name="unit_number" id="unit_number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group required">
+                                        <label class="control-label">Unit type</label>
+                                        <select class="form-control selectpicker " name="unit_type_raw"
+                                            data-live-search="true" data-size="5" id="unit_type_raw">
+                                            <optgroup label="Residential">
+                                                <option value="Apartment buildings,Residential">Apartment buildings
+                                                </option>
+                                                <option value="Townhouse,Residential">Townhouse</option>
+                                                <option value="Condos,Residential">Condos</option>
+                                                <option value="Single-family houses,Residential">Single-family houses
+                                                </option>
+                                                <option value="Duplex,Residential">Duplex</option>
+                                                <option value="Triplex,Residential">Triplex</option>
+                                                {% comment %} <option value="Fourplex,Residential">Fourplex</option>
+                                                {% endcomment %}
+                                                <option value="Villas,Residential">Villas</option>
+                                                <option value="Land,Residential">Land for residential</option>
+                                            </optgroup>
+                                            <optgroup label="Commercial">
+                                                <option value="Office spaces,Commercial">Office space</option>
+                                                <option value="Retail spaces ,Commercial">Retail space </option>
+                                                <option value="Storage facilities,Commercial">Storage facilities
+                                                </option>
+                                                <option value="Parking lots and garages,Commercial">Parking lots and
+                                                    garages</option>
+                                                <option value="Grocery stores ,Commercial">Grocery stores </option>
+                                                <option value="gas stations,Commercial">gas stations</option>
+                                                <option value="Land,Commercial">Land for commercial</option>
+                                                {% comment %} <option value="Movie theatres,Commercial">Movie theatres
+                                                </option> {% endcomment %}
+                                            </optgroup>
+                                            {% comment %} <optgroup label="Special Use">
+                                                <option value="Land,Special Use">Land</option>
+
+                                            </optgroup> {% endcomment %}
+                                            <optgroup label="Industrial">
+                                                <option value="Production facilities,Industrial">Production facilities
+                                                </option>
+                                                <option value="refrigerated storage,Industrial">refrigerated storage
+                                                </option>
+                                                <option value="Research and development parks,Industrial">Research and
+                                                    development parks</option>
+                                                <option value="Power plants,Industrial">Power plants</option>
+                                            </optgroup>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group"><label class="control-label">Comments and
+                                            Notes</label><textarea class="form-control editable"
+                                            placeholder="Enter any renovation comments or notes." rows="3" id="comments"
+                                            name="comments"></textarea></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="onboarding-slide   ">
+                        <div class="onboarding-content with-gradient">
+                            <h4 class="onboarding-title display-8 lead text-left font-w600">Calender</h4>
+                            <hr>
+
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required  display_month display_">
+                                        <label for=""> Move out date</label>
+                                        <div class="date-input"><input autocomplete="off"
+                                                class="past_date form-control  editable in_out_date"
+                                                placeholder="Move out date" type="text" name="move_out_date"
+                                                id="move_out_date"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required  display_month display_">
+                                        <label for=""> Made ready date</label>
+                                        <div class="date-input"><input autocomplete="off"
+                                                class="all_date form-control  editable" placeholder="Made ready date"
+                                                type="text" name="made_ready_date" id="made_ready_date"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required  display_month display_">
+                                        <label for=""> Move in date</label>
+                                        <div class="date-input"><input autocomplete="off"
+                                                class="all_date form-control  editable in_out_date"
+                                                placeholder="Move in date" type="text" name="move_in_date"
+                                                id="move_in_date"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required  display_month display_">
+                                        <label for=""> Days vacant</label>
+                                        <div class="date-input"><input autocomplete="off" readonly
+                                                class=" form-control  editable bg-light" placeholder="Days vacant"
+                                                type="number" name="days_vacant" id="days_vacant"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="onboarding-slide   ">
+                        <div class="onboarding-content with-gradient">
+                            <h4 class="onboarding-title display-8 lead text-left font-w600">Rent</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Prior rent</label>
+                                        <input class="form-control editable rent_data" placeholder="Example: 5600"
+                                            type="number" name="priror_rent" id="priror_rent">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Net renovated rent</label>
+                                        <input class="form-control editable rent_data" placeholder="Example: 5600"
+                                            type="number" name="net_renovated_rent" id="net_renovated_rent">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required">
+                                        <label class="control-label amount_title">Monthly net increase</label>
+                                        <input class="form-control editable bg-light" readonly type="number"
+                                            placeholder="Example: 7000" name="monthly_net_increase"
+                                            id="monthly_net_increase">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group required">
+                                        <label class="control-label amount_title">Annualized increase</label>
+                                        <input class="form-control editable bg-light" readonly type="number"
+                                            placeholder="Example: 7000" name="annualized_increase"
+                                            id="annualized_increase">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+                    {% comment %} <div class="onboarding-slide   ">
+                        <div class="onboarding-content with-gradient">
+                            <h4 class="onboarding-title display-8 lead text-left font-w600">Lastly</h4>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">Total renovation costs</label>
+                                            <input class="form-control " placeholder="Enter the amount" type="number"
+                                                name="total_renovation_costs" id="total_renovation_costs">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">Annualized return</label>
+                                            <input class="form-control " placeholder="EEnter the amount" type="number"
+                                                name="annualized_return" id="annualized_return">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="onboarding-slide   ">
+                        <div class="onboarding-content with-gradient">
+                            <h4 class="onboarding-title display-8 lead text-left font-w600">Location info</h4>
+                            <hr>
+                            {% include 'partials/_select_country.html' with name="country" id="country" class="country" %}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">County/ State</label>
+                                            <input class="form-control " placeholder="Example: California" type="text"
+                                                name="state" id="state">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">City</label>
+                                            <input class="form-control " placeholder="Example: Los Angeles" type="text"
+                                                name="city" id="city">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">Neighborhood/Street</label>
+                                            <input class="form-control " placeholder="Example: Venice" type="text"
+                                                name="neighborhood" id="neighborhood">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-group required">
+                                            <label class="control-label">Zip</label>
+                                            <input class="form-control " placeholder="Example: 90202" type="text"
+                                                name="zip" id="zip">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="onboarding-slide">
+
+                        <div class="onboarding-content with-gradient">
+                            <input type="hidden" name="action_type" id="action_type">
+                            <input type="hidden" name="id" id="property_auto" class='property_auto'>
+                            <h4 class="onboarding-title lead display-8 text-center d-none show_title_edit">Are you done?
+                            </h4>
+                            <h4 class="onboarding-title lead display-8 text-center  show_title_add">Are you done?
+                            </h4>
+
+                            {% comment %} <h4 class=" show_title_add onboarding-title lead display-4 fancy_text4 text-center">Next<br>
+                                <span class="display-8 ">Repairs and renovations</span> </h4> {% endcomment %}
+                            <div class="form-buttons-w d-flex flex-row justify-content-end">
+                                <button class="btn btn-primary px-5 py-2 mt-3 " type="buttom" id="submit_property">Click
+                                    to upload
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock modal %}
+{% block content %}
+<div class="content-body" style="min-height: 828px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="card mx-3">
+            <div class="card-header d-block mx-3 text-center">
+                <h5 class="card-titles custom-card-title display-4 ">Add property</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="col-12">
+                    <div class="card px-3">
+                        {% include 'partials/_table_extra.html' with button_class="" button_id="add_property_button" button_text="Click to add" total_class="total_property" total_text="property"  %}
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="property_table">
+                                    <thead class="bg-primaryf">
+                                        <tr>
+                                            <th>Property</th>
+                                            <th>Type</th>
+                                            <th>Location</th>
+                                            <th>Monthly net increase</th>
+                                            <th>Annualized increase</th>
+                                            <th> </th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+{% include 'partials/_date.html' %}
+<script>
+   // $('#next_modal').modal('show');
+    $(document).on('click', '#next_submit', function () {
+        var target_location = $('#next_value').val();
+        var id = $('#next_id').val();
+        if (target_location == "yes") {
+            url_path = "{% url 'services:index'%}?modal=True";
+            window.open(url_path);
+        }
+        if (target_location == "nothing") {
+            $('#next_modal').modal('hide');
+        }
+    });
+
+   $(document).on('change', '.in_out_date', function () {
+   // var endDate = $(this).val();
+    
+    var startDate = $('#move_out_date').val();
+    var endDate = $('#move_in_date').val();
+    if(startDate &&  endDate){
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+    
+        var diffDate = (end - start) / (1000 * 60 * 60 * 24);
+        var days = Math.round(diffDate);
+        $('#days_vacant').val(days);
+    }else{
+        $('#days_vacant').val(0);
+    }
+    
+});
+   $(document).on('change', '.rent_data', function () {
+    var priror_rent = $('#priror_rent').val();
+    var net_renovated_rent = $('#net_renovated_rent').val();
+    var twelve=12;
+    if(priror_rent &&  net_renovated_rent){
+        var monthly_net_increase = parseFloat(priror_rent) - parseFloat(net_renovated_rent);
+        var annualized_increase =parseFloat(net_renovated_rent)*parseFloat(twelve);
+        $('#monthly_net_increase').val(monthly_net_increase).change();
+        $('#annualized_increase').val(annualized_increase).change();
+    }else{
+        $('#monthly_net_increase').val(0);
+        $('#annualized_increase').val(0);
+    }
+});
+    $(document).on('click', '#add_property_button', function () {
+        $('#property_form')[0].reset();
+        $("#action_type").val("add");
+        $(".show_title_add").removeClass("d-none");
+        $(".show_title_edit").addClass("d-none");
+        $(".property_title").text("Let's begin");
+        $("#submit_property").html("Create property");
+        random_value = Math.random().toString(36).substr(2, 15);
+        $(".random_value").val(random_value);
+        $('#unit_type_raw').val("Apartment buildings,Residential").change();
+        $('#property_modal').modal('show');
+    });
+ 
+  //  $('#property_table').css('min-height', '200px');
+    var property_table = $("#property_table").DataTable({
+        processing: true,
+        serverSide: true,
+        "ordering": false,
+        "oLanguage": {
+            "sEmptyTable": "No property added",
+            "sStripClasses": "",
+            "sSearch": "",
+            "sSearchPlaceholder": "search...",
+            "sLengthMenu": '<span></span><select class="browser-default bg-light ">' +
+                '<option value="10">10</option>' +
+                '<option value="20">20</option>' +
+                '<option value="30">30</option>' +
+                '<option value="40">40</option>' +
+                '<option value="50">50</option>' +
+                '<option value="50">100</option>' +
+
+                '</select></div>'
+        },
+        ajax: {
+            url: '{% url "property:property-listcreate" %}',
+        },
+
+        // dom: 'Bfrtip',
+        //  buttons: [
+        //      'copyHtml5',
+        //        'excelHtml5',
+        //        'csvHtml5',
+        //        'pdfHtml5'
+        // ],
+
+
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // converting to interger to find total
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // computing column Total of the complete result 
+
+        },
+        "fnDrawCallback": function () {
+            $('.total_property').html(this.fnSettings().fnRecordsTotal());
+        },			
+        "rowCallback": function(row, data, index) {
+           // $("td:eq(3)", row).css("background-color", "#F9EBEA" );
+            $("td:eq(3)", row).css("border-left", "1px solid #7e7e7e" );
+            $("td:eq(4)", row).css("border-left", "1px solid #7e7e7e" );
+        
+          ///  $("td:eq(4)", row).css("background-color", "#F9EBEA");
+   
+    
+           
+        }
+    }); 
+
+    $(document).on('click', '.edit_property_button', function () {
+        var property = $(this).attr("id");
+        $('input.form-control').val("");
+        $('input.textarea').val("");
+       
+        
+        $.ajax({
+            url: "{% url 'property:property-rud' id=12345 %}".replace(/12345/, property).toString(),
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+             
+                $('.property_title').text(data.property_name+', unit#'+ data.unit_number);
+                $('#property_name').val(data.property_name);
+                $('#unit_number').val(data.unit_number);
+                $('#description').val(data.description);
+                $("#unit_type_raw").val(data.unit_type + ',' + data.unit_category).change();
+                $('#property_auto').val(data.id);
+                $('#comments').val(data.comments);
+
+                $('#move_out_date').val(data.move_out_date);
+                $('#move_in_date').val(data.move_in_date);
+                $('#made_ready_date').val(data.made_ready_date);
+                $('#days_vacant').val(data.days_vacant);
+
+                $('#priror_rent').val(data.priror_rent);
+                $('#net_renovated_rent').val(data.net_renovated_rent);
+                $('#monthly_net_increase').val(data.monthly_net_increase);
+                $('#annualized_increase').val(data.annualized_increase);
+
+                $('#country').val(data.country).change();
+                $('#city').val(data.city);
+                $('#state').val(data.state);
+                $('#neighborhood').val(data.neighborhood);
+                $('#zip').val(data.zip);
+
+                $('.random_value').val(data.random_value);
+                $('#submit_property').attr('disabled', false);
+                $("#submit_property").html("Edit property");
+                $("#action_type").val("edit");
+                $(".show_title_edit").removeClass("d-none");
+                $(".show_title_add").addClass("d-none");
+                $('#property_modal').modal('show');
+
+            }
+        })
+    });
+    $(document).on('click', '.delete_property_button', function () {
+        var data = $(this).attr("id");
+        var data_split = data.split(",");
+        var property_name = data_split[0];
+        var property_id = data_split[1];
+        $('#confirm_title').text("Just confirming...");
+        $('#confirm_text').text("Confirming the delete of " + property_name + " as a property");
+        $('#confirm_extra').text("Do you really want to delete " + property_name + "?");
+        $('#confirm_button').text("Confirm delete");
+        $('#confirm_alert').modal('show');
+        $('#confirmYes').one('click', function () {
+            $.ajax({
+                url: "{% url 'property:property-rud' id=12345 %}".replace(/12345/,
+                        property_id)
+                    .toString(),
+                method: "DELETE",
+                dataType: "json",
+                success: function (data) {
+                    property_table.ajax.reload();
+                    $('#success_text').text("Property removed.");
+                    $('#confirm_alert').modal('hide');
+                    $('#success_alert').modal('show');
+                }
+            });
+
+        });
+        $("#confirmNo").click(function () {
+            $('#confirm_alert').modal('hide');
+        });
+
+    });
+    $(document).on('submit', '#property_form', function (event) {
+        var action_type = $('#action_type').val();
+        var id = $('#property_auto').val();
+        if (action_type == 'add') {
+            var button="Create property"
+            var method = 'POST';
+            var url = '{% url "property:property-listcreate" %}';
+        }
+        if (action_type == 'edit') {
+            var button="Edit property"
+            var method = 'PUT';
+            var url = "{% url 'property:property-rud' id=12345 %}".replace(/12345/, id).toString();
+        }
+
+       
+        var form_data = new FormData(this);
+        event.preventDefault();
+        $.ajax({
+            method: method,
+            url: url,
+            data: form_data,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            beforeSend: function () {
+                $('#submit_property').attr('disabled', 'disabled');
+                $("#submit_property").html("Please wait");
+            },
+            success: function (data) {
+                $('#submit_property').attr('disabled', false);
+                $("#submit_property").html(button);
+
+                if (data.success) {
+                    property_table.ajax.reload();
+                    $('#property_modal').modal('hide');
+                    if (action_type == "add") {
+                        $('#next_id').val(data.property_auto);
+                        //{% comment %} url_path = "{% url 'property:units' property=12345 %}".replace(/12345/, data
+                        // .property_auto).toString(); {% endcomment %}
+                        // $("#success_confirm_button").attr("href", url_path)
+                        $('.onboarding-modal .onboarding-slider-w').slick('slickGoTo', 0);
+                        //  $('#success_confirm_text').text("Would you like to create units for " + data
+                        //     .property_name + " ?");
+                        // $('#success_confirm_alert').modal('show');
+                        $('#next_modal').modal('show');
+                    } else {
+
+                        $('#success_text').text(data.success);
+                        $('#success_alert').modal('show');
+                    }
+                    $('.onboarding-modal .onboarding-slider-w').slick('slickGoTo', 0);
+
+                }
+                if (data.error) {
+                    $('#oops_text').text(data.error);
+                    $('#oops_alert').modal('show');
+                }
+            },
+            error: function (jqXhr) {
+                $('#submit_property').attr('disabled', false);
+                $("#submit_property").html(button);
+                $('#oops_text').text("Something went wrong, try again later");
+                $('#oops_alert').modal('show');
+            }
+        });
+    });
+
+
+
+
+   
+  
+    
+
+</script>
+{% endblock scripts %}
+
+
+
+{% endblock content %}
+
+
+<!--**********************************
+    Content body end
+***********************************-->

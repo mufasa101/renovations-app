@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% comment %} {% endif %} {% endcomment %}
+
+{% load static %}
+
+{% block title %} Import {% endblock title %}
+
+{% block content %}
+<div class="content-body" style="min-height: 828px;">
+    <!-- row -->
+    <div class="container-fluid">
+
+        <div class="card mx-3">
+            <div class="card-header d-block mx-3 text-center">
+                <h5 class="card-titles display-4 custom-card-title ">Import property</h5>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="col-12">
+
+                    <div class="card px-3">
+
+                        
+
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" name="myfile">
+                                    <button type="submit">Upload</button>
+                                  </form>y>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+
+<!--**********************************
+    Content body end
+***********************************-->

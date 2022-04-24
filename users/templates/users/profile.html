@@ -1,0 +1,470 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} {{property.property_name}} {% endblock title %}
+
+
+{% block content %}
+
+
+
+<div class="content-body" style="min-height: 828px;">
+    <!-- row -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-header d-block mx-3 text-center">
+                        <h5 class="card-titles display-4 custom-card-title "><span>Profile
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="col-12 ">
+                    <div class="row ">
+
+
+                        <div class="col-md-3 col-12 card py-4">
+
+                            <div class="nav flex-column nav-pills fancy_text4 ">
+                                <a href="#v-pills-about" data-toggle="pill" class="nav-link active show">My profile </a>
+                                <a href="#v-pills-contact" data-toggle="pill" class="nav-link">Contact info</a>
+                                <a href="#v-pills-location" data-toggle="pill" class="nav-link">Location</a>
+                                {% comment %} <a href="#v-pills-property" data-toggle="pill" class="nav-link">Property</a> {% endcomment %}
+                                <a href="#v-pills-password" data-toggle="pill" class="nav-link">Change password</a>
+                                {% comment %} <a href="#v-pills-password" data-toggle="pill" class="nav-link">Click to Logout </a> {% endcomment %}
+                                {% comment %} <a href="#v-pills-documents" data-toggle="pill"
+                                    class="nav-link">Logout</a> {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-12 px-0 pl-md-3">
+                            <form method="POST" id='edit_profile_form'>
+                            <div class="tab-content">
+                                <div id="v-pills-about" class="tab-pane fade  active show ">
+                                    <div class="card  ">
+                                        <div class="card-header d-block mx-3 pl-3 text-left pt-4 text-primary pb-2">
+                                            <h5 class="card-titles custom-card-header display-8 fancy_text5 "><span>My
+                                                    profile
+
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            {% include 'partials/_image2.html' with name="image"  %}
+                                            <div class="row">
+                                                <div class="col-md-6d col-12  ">
+                                                    <div class=" form-group ">
+                                                        <label for="" class="step-text">Full name</label>
+                                                        <input class="form-control required required-1"
+                                                            placeholder="Example: Mariga Waithera" type="text" id='name'
+                                                            name="name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group"> <label class='' for="">Position</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Estate agent"
+                                                                type="text" name="position" id="position">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group"> <label class='' for="">Experience in
+                                                            years</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="7 years"
+                                                                type="number" name="experience" id="experience">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group"><label class="control-label">Service
+                                                            description
+                                                        </label><textarea class="form-control editable" rows="6"
+                                                            id="description" name="description"></textarea></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-buttons-ww mt-1 d-flex flex-row justify-content-start">
+                                                <button class="btn btn-primary px-5 py-3 mwt-3 submit_admin" type="submit"
+                                                    id="submit_property1">Click
+                                                    to submit
+                                                </button>
+                                            </div>
+
+
+
+                                            <!-- <hr> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="v-pills-contact" class="tab-pane fade">
+                                    <div class="card ">
+                                        <div class="card-header d-block mx-3 pl-3 text-left pt-4 text-primary pb-2">
+                                            <h5 class="card-titles custom-card-header display-8 fancy_text5 ">
+                                                <span>Contact info
+
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row ">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group"> <label class='' for="">Phone number</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter phone number"
+                                                                type="text" name="phone_number" id="phone_number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group"> <label class='' for="">Email</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter email"
+                                                                type="email" name="email" id="email">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="form-group"> <label class='' for="">Facebook url</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter facebook url"
+                                                                type="text" name="facebook" id="facebook">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="form-group"> <label class='' for="">Twitter url</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter twitter url"
+                                                                type="text" name="twitter" id="twitter">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="form-group"> <label class='' for="">Linked In
+                                                            url</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter linkedin url"
+                                                                type="text" name="linkedin" id="linkedin">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="form-group"> <label class='' for="">YouTube url</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter youtube url"
+                                                                type="text" name="youtube" id="youtube">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-buttons-ww mt-1 d-flex flex-row justify-content-start">
+                                                <button class="btn btn-primary px-5 py-3 mwt-3 submit_admin" type="submit"
+                                                    id="submit_property2">Click
+                                                    to submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="v-pills-location" class="tab-pane fade">
+                                    <div class="card  ">
+                                        <div class="card-header d-block mx-3 pl-3  text-left pt-4 text-primary pb-2">
+                                            <h5 class="card-titles custom-card-header display-8 fancy_text5 ">
+                                                <span>Location
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            {% comment %} <div class="row">
+                                                <div class="col-md-6 col-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Country</label>
+                                                        <input class="form-control country" readonly=""
+                                                            placeholder="Example: Kenya" value="{{property.country}}"
+                                                            type="text">
+                                                    </div>
+                                                </div>
+                                            </div> {% endcomment %}
+                                            {% include 'partials/_select_country.html' with name="country_raw" id="country_raw" class="country_raw" class_top="col-md-6 col-12" %}
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-group required">
+                                                            <label class="control-label">County/ State</label>
+                                                            <input class="form-control " placeholder="Example: California" type="text"
+                                                                name="state" id="state">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-group required">
+                                                            <label class="control-label">City</label>
+                                                            <input class="form-control " placeholder="Example: Los Angeles" type="text"
+                                                                name="city" id="city">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+                                          
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="form-group"> <label class='' for="">Address</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control"
+                                                                placeholder="591 Grand Avenue" type="text"
+                                                                name="location" id="location">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-buttons-ww mt-1 d-flex flex-row justify-content-start">
+                                                <button class="btn btn-primary px-5 py-3 mwt-3 submit_admin" type="submit"
+                                                    id="submit_property3">Click
+                                                    to submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="v-pills-property" class="tab-pane fade">
+                                    <div class="card">
+                                        <div class="card-header d-block mx-3 pl-3  text-left pt-4 text-primary pb-2">
+                                            <h5 class="card-titles custom-card-header display-8 fancy_text5 ">
+                                                <span>Property
+
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-4 mt-2">
+                                                <div class="d-flex justify-content-end col-12">
+                                                    <button
+                                                        class="btn btn-primary  btn-rounded px-5 py-2 mr-sm-4 tesxt-white add_amen_button"
+                                                        type='button'><span>Click to add</span></button>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" style="cursor: pointer;">
+                                                <table id='amen_table'
+                                                    class="table display responsive table-heading dataTable"
+                                                    style="width:100%">
+                                                    <thead>
+                                                        <tr>
+
+
+                                                            {% comment %} <th class="text-left">Category</th>
+                                                            {% endcomment %}
+                                                            <th class="text-left">Name</th>
+                                                            <th class="text-left">Categeory</th>
+                                                            <th class="text-left">Delete</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-left">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="v-pills-password" class="tab-pane fade">
+                                    <div class="card ">
+                                        <div class="card-header d-block mx-3 pl-3 text-left pt-4 text-primary pb-2">
+                                            <h5 class="card-titles custom-card-header display-8 fancy_text5 ">
+                                                <span>Change password
+
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row ">
+                                                <div class="col-12 ">
+                                                    <div class="form-group"> <label class='' for="">Password 1</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter password"
+                                                                type="password" value="no_password" name="password_credential1" id="password_credential1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-12 ">
+                                                    <div class="form-group"> <label class='' for="">Password 2</label>
+                                                        <div class="input-group mb-2 mb-sm-0">
+                                                            <input class="form-control" placeholder="Enter password"
+                                                                type="password" value="no_password" name="password_credential2" id="password_credential2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-buttons-ww mt-1 d-flex flex-row justify-content-start">
+                                                <button class="btn btn-primary px-5 py-3 mwt-3 submit_admin" type="submit"
+                                                    id="submit_property4">Click
+                                                    to submit
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#imageUpload2').attr("src", '/media/profile/no_profiles.jpg').change();
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview2').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview2').hide();
+                    $('#imagePreview2').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imageUpload2").change(function() {
+         
+            readURL(this);
+        });
+        id=10
+        $.ajax({
+            url: "{% url 'users:Edit_my_profile' id=711 %}",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                $('.admin_name_title').text(data.profile.name);
+                $('#admin_id').val(id);
+                $('#name').val(data.profile.name);
+                $('#user_id').val(data.profile.user);
+                $('#email').val(data.email);
+                $('#phone_number').val( data.profile.phone_number);
+                $('#position').val( data.profile.position);
+                $('#experience').val( data.profile.experience);
+                $('#description').val( data.profile.description);
+                $('#location').val( data.profile.location);
+                $('#city').val( data.profile.city);
+                $('#state').val( data.profile.state);
+                $("#country_raw").val(data.profile.country_code + ',' + data.profile.country).change();
+                $('#facebook').val( data.profile.facebook);
+                $('#twitter').val( data.profile.twitter);
+                $('#linkedin').val( data.profile.linkedin);
+                $('#youtube').val( data.profile.youtube);
+                if (data.is_active == true) {
+                    $('#is_active').val("True").change();
+                } else {
+                    $('#is_active').val("False").change();
+                }
+
+                $('#password_credential1').val("no_password").change();
+                $('#password_credential2').val("no_password").change();
+                $('.username_user').addClass("d-none");
+                $('#imageUpload2').attr("src", data.profile.image).change();
+                $('#imagePreview2').css('background-image', 'url(' + data.profile.image + ')');
+                $("#action_type").val("edit");
+                $('#add_admin_modal').modal('show');
+
+
+            }
+        })
+        $(document).on('submit', '#edit_profile_form', function (event) {
+            var action_type = $('#action_type').val();
+            var admin = $('#admin_id').val();
+           
+            var method = 'PUT';
+            var url= "{% url 'users:Edit_my_profile' id=711 %}";
+        
+    
+            var form_data = new FormData(this);
+    
+            event.preventDefault();
+            $.ajax({
+                method: method,
+                url: url,
+                data: form_data,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.submit_admin').attr('disabled', 'disabled');
+                    $(".submit_admin").html("Please wait");
+                },
+                success: function (data) {
+    
+                    $('.submit_admin').attr('disabled', false);
+                    $(".submit_admin").html("Upload records");
+                    if (data.error) {
+                        $('#oops_text').text(data.error);
+                        $('#oops_alert').modal('show');
+                    }
+                    if (data.success) {
+                        //$('.onboarding-modal .income_slick_modal').slick('slickGoTo', 0);
+    
+                        $('#success_text').text(data.success);
+                        $('#success_alert').modal('show');
+                        admin_table.ajax.reload();
+                        $('#add_admin_modal').modal('hide');
+                    }
+                },
+                error: function (error) {
+    
+                    $('.submit_admin').attr('disabled', false);
+                    $(".submit_admin").html("Upload records");
+                    $('#oops_text').text("Something went wrong, try again later");
+                    $('#oops_alert').modal('show');
+                }
+            });
+        });
+    });
+
+    {% comment %}  {% endcomment %}
+ 
+</script>
+
+{% endblock scripts %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends "account_base.html" %}
+ {% load i18n %} 
+ {% block title %}{% trans "Account is inactive" %}{% endblock %} 
+{% comment %} {% block title %}Account is inactive {% endblock title %}  {% endcomment %}
+{% block content %} 
+     <h4 class="text-center mb-4 display-8 fancy_text4"  style="font-family: 'poppins', sans-serif;">Sorry, your account is inactive</h4>
+<p class="text-center display-8 fancy_text3 border-top pt-3">Kindly contact the admin to sort you out. </p>
+{% endblock %}

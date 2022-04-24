@@ -1,0 +1,31 @@
+<script>
+    select_option = {
+        units: function (variable) {
+            $.ajax({
+                url: "{% url 'search:units' %}",
+                method: "GET",
+                "data": {
+                    "role": 'manager',
+                },
+                success: function (data) {
+                    $(variable).html(data).selectpicker('refresh');
+
+                }
+            });
+        },
+        contractor: function (variable) {
+            $.ajax({
+                url: "{% url 'search:contractor' %}",
+                method: "GET",
+                "data": {
+                    "role": 'manager',
+                },
+                success: function (data) {
+                    $(variable).html(data).selectpicker('refresh');
+
+                }
+            });
+        },
+
+    }
+</script>

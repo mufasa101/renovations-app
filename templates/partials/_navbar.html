@@ -1,0 +1,83 @@
+<style>
+    .ai-icon {
+        border-left: 14px solid #EEEEEE;
+        border-top: 18px solid #EEEEEE;
+    }
+
+    .ps__rail-y {
+        display: block !important;
+    }
+
+    [data-sidebar-style="compact"] .deznav .metismenu .li_left li {
+        text-align: center;
+        background: white;
+        border-raddius: 30px;
+    }
+
+    .  {% if not request.user.is_paid %} has_opacity {% endif %}  {
+        opacity: 0.3;
+        border-bottom: 14px solid #ddc2c2;
+    }
+    [data-sidebar-style="compact"] .deznav .metismenu > li a > i {
+        display:none
+    }
+
+        [data-sidebar-style="compact"] .nav-text {
+            font-family: 'fancy_text5';
+            font-size: 1rem;
+        }
+{% comment %} .mm-collapse{
+    border-radius:0px 0px 20px 0px;
+    border:14px solid #EEEEEE;
+    border-top:none;
+    border-right:none;
+} {% endcomment %}
+</style>
+<div class="deznav no-print">
+    <div class="deznav-scroll mm-acdtive ps ps--active-y ps--scrolling-y">
+        <ul class="metismenu ml-xl-3" id="menu">
+
+            <li {% if "dashboard" in request.path %} class="mm-active" {% endif %} {% if request.path ==  "/" %}
+                class="mm-active" {% endif %}><a class="has-arrow ai-icon " href="{% url 'property:index' %}" aria-expanded="false">
+                    <i class="flaticon-381-home-1"></i>
+                    <span class="nav-text">Dashboard </span>
+                </a>
+            </li>
+            <li {% if "add" in request.path %} class="mm-active" {% endif %}><a
+                href="{% url 'property:add' %}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-381-settings-4"></i>
+                <span class="nav-text">Property</span>
+            </a>
+        </li>
+            <li {% if "services" in request.path %} class="mm-active" {% endif %}><a
+                href="{% url 'services:index' %}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-381-settings-4"></i>
+                <span class="nav-text">Renovations</span>
+            </a>
+        </li>
+            <li {% if "import" in request.path %} class="mm-active" {% endif %}><a
+                href="{% url 'property:import_property' %}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-381-settings-4"></i>
+                <span class="nav-text">Import</span>
+            </a>
+        </li>
+        {% if request.user.is_system_admin %} 
+        <li {% if "users" in request.path %} class="mm-active" {% endif %}><a
+            href="{% url 'users:index' %}" class="ai-icon" aria-expanded="false">
+            <i class="flaticon-381-settings-4"></i>
+            <span class="nav-text">Users</span>
+        </a>
+    </li>
+        
+        {% endif %}  
+            
+            <br><br><br><br>
+        </ul>
+        <div class="disraeli">
+            <p></p>
+        </div>
+    </div>
+
+</div>
+
+
