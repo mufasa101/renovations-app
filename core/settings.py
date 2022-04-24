@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import environ
 env = environ.Env(
     # set casting, default value
@@ -97,8 +98,15 @@ AUTHENTICATION_BACKENDS = [
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+HEROKU = env.bool('HEROKU')
 
-DATABASES = {
+if HEROKU:
+    DATABASES = {}
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600,)
+    SECURE_SSL_REDIRECT = True
+   
+else:
+    DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME":env("POSTGRES_DB"),
@@ -108,6 +116,7 @@ DATABASES = {
         "PORT": env("POSTGRES_PORT"),
     }
     }
+
 
 
 # Password validation
